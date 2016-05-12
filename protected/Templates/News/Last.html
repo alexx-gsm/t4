@@ -1,0 +1,18 @@
+{% extends 'Index.html' %}
+
+{% block content %}
+<h1>БЛОГ</h1>
+
+<div class="panel panel-default">
+    <div class="panel-heading">{{ last.title }}</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-9"><img style="width: 100%;" src="{{ last.img }}" alt=""></div>
+            <div class="col-md-3">{{ last.text }}</div>
+        </div>
+    </div>
+    <div class="panel-footer"></div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'Index.html' %}
+
+{% block content %}
+<h1>БЛОГ</h1>
+
+<div class="row">
+    <!-- MAIN CONTENT -->
+    <div class="col-md-9">
+    {% for item in news %}
+        <div class="panel panel-default">
+            <div class="panel-heading"><a href="/news/article_{{ item.id }}.html">{{ item.title }}</a></div>
+            <div class="panel-body">
+                <div><img style="width: 100%;" src="{{ item.img }}" alt=""></div>
+            </div>
+            <p>{{ item.intro }}</p>
+            <div class="panel-footer">
+                <a class="btn btn-default pull-right" href="/news/article_{{ item.id }}.html" role="button">More</a>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+    {% endfor%}
+    </div><!-- END of MAIN CONTENT -->
+
+    <!-- RIGHT SIDEBAR -->
+    <div class="col-md-3">
+        <div class="panel panel-info">
+            <div class="panel-heading">Последняя новость</div>
+            <div class="panel-body">
+                <t4:block path="//News/Last" />
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
