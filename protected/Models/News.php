@@ -13,29 +13,15 @@ class News extends Config
 
     public static function findOne($id)
     {
-        $article = new Article();
-
-        $news = News::findAll()[$id];       // порядковый номер в массиве = наш id
-
-        foreach ($news as $k => $v) {
-            $article[$k] = $v;
-        }
-
-        return $article;
+        return News::findAll()[$id];       // порядковый номер в массиве = наш id
     }
 
     public static function findLast()
     {
-        $article = new Article();
-
         $news = News::findAll()->data;      // фильтруем массив
         $news = end($news);                 // выбираем последний элемент
 
-        foreach ($news as $k => $v) {       // заполняем статью данными из базы
-            $article[$k] = $v;
-        }
-
-        return $article;
+        return $news;
     }
     
     public static function saveOne(Article $article)
