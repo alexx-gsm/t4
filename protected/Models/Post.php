@@ -16,8 +16,8 @@ class Post extends Model
     static protected $schema = [
         'columns' => [
             'title' => ['type' => 'string'],
-            'intro' => ['type' => 'string'],
-            'text'  => ['type' => 'string'],
+            'intro' => ['type' => 'text'],
+            'text'  => ['type' => 'text'],
             'image' => ['type' => 'string'],
             'date'  => ['type' => 'date'],
         ],
