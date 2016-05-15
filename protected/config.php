@@ -5,9 +5,9 @@ return [
         'default' => [
             'driver' => 'mysql',
             'host' => 'localhost',
-            'user' => 'alexx-t4',
-            'password' => '15987',
-            'dbname' => 't4-mini',
+            'user' => 'root',
+            'password' => '',
+            'dbname' => 't4',
         ],
     ],
 
@@ -16,4 +16,10 @@ return [
     'about' => 'О Нас',
     'photo' => 'Фото',
     'photoLast' => 'Свежее',
+
+    'admin' => 'Админ',
+    'posts' => 'Все посты',
+    'post'  => 'Пост',
+    'new'   => 'New',
+    'edit'  => 'Edit',
 ];

@@ -1,0 +1,58 @@
+{% extends 'Admin.html' %}
+
+{% block content %}
+
+
+<div class="row">
+    <!-- MAIN CONTENT -->
+    <div class="col-md-9">
+        <form action="/admin/post/add" method="post" enctype="multipart/form-data">
+            <div class="panel panel-success">
+
+                <div class="panel-heading">Новый пост</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="title">Заголовок</label>
+                        <input class="form-control" type="text" name="title" id="title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="intro">Введение</label>
+                        <textarea id="intro" class="form-control" rows="2" name="intro" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="text">Статья</label>
+                        <textarea id="text" class="form-control" rows="4" name="text" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="file">Картинка</label>
+                        <input type="file" id="file" name="image" required>
+                        <p class="help-block">Выбери картинку</p>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <input class="btn btn-default" type="submit" value="Сохранить">
+                    <div style="clear: both;"></div>
+                </div>
+            </div>
+        </form>
+    </div><!-- END of MAIN CONTENT -->
+
+    <!-- RIGHT SIDEBAR -->
+    <div class="col-md-3">
+        <div class="panel panel-warning">
+            <div class="panel-heading">Действия</div>
+            <div class="panel-body">
+                <a href="/admin/post/new.html" class="btn btn-default btn-md" role="button">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true">&nbsp;</span>
+                    Новый пост
+                </a>
+                <hr>
+                <a href="/admin" class="btn btn-default btn-md" role="button">
+                    <span class="glyphicon glyphicon-menu-left" aria-hidden="true">&nbsp;</span>
+                    Все посты
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

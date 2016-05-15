@@ -11,7 +11,6 @@ class Index
     public function actionDefault()
     {
         $this->data->extraTitle = $this->app->config->home . ' | ';
-
     }
 
 }

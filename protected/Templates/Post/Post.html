@@ -1,0 +1,50 @@
+{% extends 'Admin.html' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-9">
+        <div class="panel panel-default">
+            <div class="panel-heading">{{ post.title }}</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-9"><img style="width: 100%;" src="{{ post.image }}" alt=""></div>
+                    <div class="col-md-3">{{ post.text }}</div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <a class="btn btn-default pull-right" href="/admin" role="button">Back</a>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+    </div><!-- END of MAIN CONTENT -->
+
+    <!-- RIGHT SIDEBAR -->
+    <div class="col-md-3">
+        <div class="panel panel-warning">
+            <div class="panel-heading">Действия</div>
+            <div class="panel-body">
+                <a href="/admin/post/new.html" class="btn btn-default btn-md" role="button">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true">&nbsp;</span>
+                    Новый пост
+                </a>
+                <hr>
+                <a href="/admin/post/edit/{{ post.__id }}" class="btn btn-success btn-md" role="button">
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true">&nbsp;</span>
+                    Редактировать
+                </a>
+                <hr>
+                <a href="/admin/post/del/{{ post.__id }}" class="btn btn-danger btn-md" role="button">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true">&nbsp;</span>
+                    Удалить
+                </a>
+                <hr>
+                <a href="/admin" class="btn btn-default btn-md" role="button">
+                    <span class="glyphicon glyphicon-menu-left" aria-hidden="true">&nbsp;</span>
+                    Все посты
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

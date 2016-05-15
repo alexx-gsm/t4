@@ -1,0 +1,72 @@
+{% extends 'Admin.html' %}
+
+{% block content %}
+
+<div class="row">
+    <!-- MAIN CONTENT -->
+    <div class="col-md-9">
+        <form action="/admin/post/save/{{ post.__id }}" method="post" enctype="multipart/form-data">
+            <div class="panel panel-success">
+
+                <div class="panel-heading">Редактор поста</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="title">Заголовок</label>
+                        <input class="form-control" type="text" name="title" id="title" value="{{ post.title }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="intro">Введение</label>
+                        <textarea id="intro" class="form-control" rows="2" name="intro" required>{{ post.intro }}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="text">Статья</label>
+                        <textarea id="text" class="form-control" rows="4" name="text" required>{{ post.text }}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <img src="{{ post.image }}" alt="">
+                        <p>{{ post.image }}</p>
+                        <input type="hidden" name="imgDefault" value="{{ post.image }}">
+                        <label for="file">Картинка</label>
+                        <input type="file" id="file" name="image">
+                        <p class="help-block">Выбери картинку</p>
+                    </div>
+                </div>
+                <input type="hidden" name="id" value="{{ post.__id }}">
+                <input type="hidden" name="date" value="{{ post.date }}">
+                <div class="panel-footer">
+                    <input class="btn btn-default" type="submit" value="Сохранить">
+                    <div style="clear: both;"></div>
+                </div>
+            </div>
+        </form>
+    </div><!-- END of MAIN CONTENT -->
+
+    <!-- RIGHT SIDEBAR -->
+    <div class="col-md-3">
+        <div class="panel panel-warning">
+            <div class="panel-heading">Действия</div>
+            <div class="panel-body">
+                <a href="/admin/post/new.html" class="btn btn-default btn-md" role="button">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true">&nbsp;</span>
+                    Новый пост
+                </a>
+                <hr>
+                <a href="/admin/post/edit/{{ post.__id }}" class="btn btn-success btn-md" role="button">
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true">&nbsp;</span>
+                    Редактировать
+                </a>
+                <hr>
+                <a href="/admin/post/del/{{ post.__id }}" class="btn btn-danger btn-md" role="button">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true">&nbsp;</span>
+                    Удалить
+                </a>
+                <hr>
+                <a href="/admin" class="btn btn-default btn-md" role="button">
+                    <span class="glyphicon glyphicon-menu-left" aria-hidden="true">&nbsp;</span>
+                    Все посты
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
