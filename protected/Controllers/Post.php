@@ -10,24 +10,17 @@ class Post
 {
     public function actionDefault()
     {
-        $this->data->area = 'admin';                        // check if we are in the admin area
-        $this->data->extraTitle = $this->app->config->posts . ' | ';
-        
         $this->data->posts = \App\Models\Post::findAll();
     }
 
     public function actionPost($id)
     {
-        $this->data->area = 'admin';                        // check if we are in the admin area
-        $this->data->extraTitle = $this->app->config->post . ' | ';
-
         $this->data->post = \App\Models\Post::findByPK($id);
     }
     
     public function actionNew()
     {
-        $this->data->area = 'admin';                        // check if we are in the admin area
-        $this->data->extraTitle = $this->app->config->new . ' | ';
+
     }
     
     public function actionSave(\App\Models\Post $post)
@@ -54,9 +47,6 @@ class Post
 
     public function actionEdit($id)
     {
-        $this->data->area = 'admin';                        // check if we are in the admin area
-        $this->data->extraTitle = $this->app->config->edit . ' | ';
-
         $this->data->post = \App\Models\Post::findByPK($id);
     }
     
