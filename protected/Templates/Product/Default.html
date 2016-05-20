@@ -6,10 +6,27 @@
 <div class="panel panel-default">
     <div class="panel-heading">Категории</div>
     <div class="panel-body">
-        <a href="/admin/post/new.html" class="btn btn-default btn-md" role="button">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true">&nbsp;</span>
-            Выбрать
-        </a>
+        <form action="/product" method="post">
+            <div class="form-group">
+                <label for="category">Выбери родительскую категорию</label>
+                <select class="form-control" name="category_id" id="category" >
+                    <option name="id" value="0">-</option>
+                    {% for item in categories %}
+                    {% if item.__lvl > 0 %}
+                    <option name="category_id" value="{{ item.pk }}">
+                        {% for i in 1..item.__lvl %}
+                        <span>&nbsp;&nbsp;</span>
+                        {% endfor %}
+                        {{ item.title }}
+                    </option>
+                    {% else %}
+                    <option>{{ item.title }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <input class="btn btn-default" type="submit" value="Показать">
+        </form>
     </div>
 </div>
 
@@ -18,7 +35,7 @@
     <div class="panel-body">
         <ul>
         {% for product in products %}
-        <li>{{ product.name }}</li>
+            <li>{{ product.name }}</li>
         {% endfor%}
         </ul>
     </div>
