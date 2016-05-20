@@ -9,8 +9,8 @@
         <form action="/product" method="post">
             <div class="form-group">
                 <label for="category">Выбери родительскую категорию</label>
+
                 <select class="form-control" name="category_id" id="category" >
-                    <option name="id" value="0">-</option>
                     {% for item in categories %}
                     {% if item.__lvl > 0 %}
                     <option name="category_id" value="{{ item.pk }}">
@@ -20,7 +20,7 @@
                         {{ item.title }}
                     </option>
                     {% else %}
-                    <option>{{ item.title }}</option>
+                    <option name="category_id" value="{{ item.pk }}">{{ item.title }}</option>
                     {% endif %}
                     {% endfor %}
                 </select>
@@ -31,7 +31,7 @@
 </div>
 
 <div class="panel panel-success">
-    <div class="panel-heading">Товары в категории: {{ current_category.title }}</div>
+    <div class="panel-heading">Товары в категории: {{ selected_category.title }}</div>
     <div class="panel-body">
         <ul>
         {% for product in products %}

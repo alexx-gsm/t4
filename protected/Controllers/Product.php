@@ -12,7 +12,7 @@ class Product extends Controller
     {
         $this->data->products = \App\Models\Product::findByCategory($category_id);
         $this->data->categories = Category::findAllTree();
-        $this->data->current_category = Category::findByPK($category_id);
+        $this->data->selected_category = Category::findByPK($category_id);
     }
 
 }
