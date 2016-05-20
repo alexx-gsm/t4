@@ -8,12 +8,11 @@ use T4\Mvc\Controller;
 
 class Product extends Controller
 {
-    public function actionDefault()
+    public function actionDefault(int $category_id = 9)
     {
-        $cat = Category::findByPK(9);
-
-//        $item = \App\Models\Product::findByPk(1);
-        var_dump($cat->products); die;
+        $this->data->products = \App\Models\Product::findByCategory($category_id);
+        $this->data->categories = Category::findAllTree();
+        $this->data->current_category = Category::findByPK($category_id);
     }
 
 }

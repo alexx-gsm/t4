@@ -2,23 +2,31 @@
 
 {% block content %}
 
-<div class="row">
-    <!-- MAIN CONTENT -->
-    <div class="col-md-9">
-
-    </div><!-- END of MAIN CONTENT -->
-
-    <!-- RIGHT SIDEBAR -->
-    <div class="col-md-3">
-        <div class="panel panel-warning">
-            <div class="panel-heading">Действия</div>
-            <div class="panel-body">
-                <a href="/admin/post/new.html" class="btn btn-default btn-md" role="button">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true">&nbsp;</span>
-                    Новый пост
-                </a>
-            </div>
-        </div>
+<!-- MAIN CONTENT -->
+<div class="panel panel-default">
+    <div class="panel-heading">Категории</div>
+    <div class="panel-body">
+        <a href="/admin/post/new.html" class="btn btn-default btn-md" role="button">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true">&nbsp;</span>
+            Выбрать
+        </a>
     </div>
 </div>
+
+<div class="panel panel-success">
+    <div class="panel-heading">Товары в категории: {{ current_category.title }}</div>
+    <div class="panel-body">
+        <ul>
+        {% for product in products %}
+        <li>{{ product.name }}</li>
+        {% endfor%}
+        </ul>
+    </div>
+</div><!-- END of MAIN CONTENT -->
+
+<!-- RIGHT SIDEBAR -->
+<div class="col-md-3">
+
+</div>
+
 {% endblock %}

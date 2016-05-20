@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+use T4\Dbal\QueryBuilder;
 use T4\Orm\Model;
 
 /**
@@ -23,4 +24,17 @@ class Product extends Model
             ],
         ],
     ];
+
+    static public function findByCategory($id)
+    {
+        $query = new QueryBuilder();
+        $query
+            ->select()
+            ->from('products')
+            ->where('__category_id=:category_id')
+            ->params([':category_id' => $id]);
+
+        return Product::findAllByQuery($query);
+
+    }
 }
