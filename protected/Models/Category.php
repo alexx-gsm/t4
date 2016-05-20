@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-
 use T4\Orm\Model;
 
 /**
@@ -10,6 +9,7 @@ use T4\Orm\Model;
  * @package App\Models
  * 
  * @property string $title
+ * @property \App\Models\Product $products
  */
 class Category extends Model
 {
@@ -17,7 +17,14 @@ class Category extends Model
         'table' => 'categories',
         'columns' => [
             'title' => ['type' => 'string'],
-            ]
+        ],
+        'relations' => [
+            'products' => [
+                'type' => self::HAS_MANY,
+                'model' => Product::class
+            ],
+        ]
+        
     ];
 
     static protected $extensions = ['tree'];
