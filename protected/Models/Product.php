@@ -8,6 +8,7 @@ use T4\Orm\Model;
  * @package App\Models
  * 
  * @property string $name
+ * @property \App\Models\Category $category
  */
 class Product extends Model
 {
