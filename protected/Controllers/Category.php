@@ -22,10 +22,13 @@ class Category extends Controller
     {
         $category = new Cat();
 
-        if (!$parent_id == 0) {
+        if (!$parent_id == null) {
             $parent = Cat::findByPK($parent_id);
-            $category->parent = $parent;
+            if( !empty($parent) ) {
+                $category->parent = $parent;
+            }
         }
+
         $category->title = $title;
         $category->save();
 
@@ -35,7 +38,7 @@ class Category extends Controller
     public function actionDel(int $category_id)
     {
         $category = Cat::findByPK($category_id);
-        if (!$category == null) {
+        if ( !empty($category) ) {
             $category->delete();
         }
         $this->redirect('/category');
