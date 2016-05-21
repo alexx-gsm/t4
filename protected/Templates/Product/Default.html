@@ -40,10 +40,24 @@
         {% endfor%}
         </ul>
     </div>
+</div>
+
+<div class="panel panel-warning">
+    <div class="panel-heading">Товары в подкатегориях категории: {{ selected_category.title }}</div>
+    <div class="panel-body">
+        {% for key, items in sub_products %}
+        {{ key }}
+        <ul>
+            {% for item in items %}
+            <li>{{ item.name }}</li>
+            {% endfor%}
+        </ul>
+        {% endfor%}
+    </div>
 </div><!-- END of MAIN CONTENT -->
 
 <!-- RIGHT SIDEBAR -->
-<div class="col-md-3">
+<div>
 
 </div>
 

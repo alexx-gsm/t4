@@ -37,4 +37,23 @@ class Product extends Model
         return Product::findAllByQuery($query);
 
     }
+
+    static public function findAllChildren($id)
+    {
+        $parent_category = Category::findByPK($id);
+        if( empty($parent_category) ) {
+            return [];
+        }
+        $sub_categories = $parent_category->findAllChildren();
+        $sub_products = [];
+
+        foreach ($sub_categories as $cat) {
+            $products = Product::findByCategory($cat->pk);
+            if( !empty($products) ) {
+                $sub_products[$cat->title] = $products;
+            }
+        }
+        
+        return $sub_products;
+    }
 }
