@@ -15,7 +15,6 @@ class Product extends Controller
         $this->data->selected_category = Category::findByPK($category_id);          // name of selected category
         
         $this->data->sub_products = \App\Models\Product::findAllChildren($category_id); // all products in sub_categories
-//        var_dump($this->data->sub_products); die;
     }
 
 }
