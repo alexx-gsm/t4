@@ -32,6 +32,12 @@
                         <a href="/category/del?category_id={{ item.pk }}" class="btn btn-default btn-md" role="button">
                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                         </a>
+                        <a href="/category/up?category_id={{ item.pk }}" class="btn btn-default btn-md" role="button">
+                            <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+                        </a>
+                        <a href="/category/down?category_id={{ item.pk }}" class="btn btn-default btn-md" role="button">
+                            <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+                        </a>
                     </td>
                 </tr>
         {% endfor %}

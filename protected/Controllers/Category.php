@@ -43,4 +43,34 @@ class Category extends Controller
         }
         $this->redirect('/category');
     }
+
+    public function actionUp(int $category_id)
+    {
+
+        
+        $category = Cat::findByPK($category_id);
+        
+        if( empty($category) )
+            $this->redirect('/category');
+        $sibling = $category->getPrevSibling();
+        if( !empty($sibling) )
+            $category->insertBefore($sibling);
+
+
+        $this->redirect('/category');
+    }
+
+    public function actionDown(int $category_id)
+    {
+        $category = Cat::findByPK($category_id);
+
+        if( empty($category) )
+            $this->redirect('/category');
+        $sibling = $category->getNextSibling();
+        if( !empty($sibling) )
+            $category->insertAfter($sibling);
+
+
+        $this->redirect('/category');
+    }
 }
