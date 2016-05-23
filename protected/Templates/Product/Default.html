@@ -9,7 +9,6 @@
         <form action="/product" method="post">
             <div class="form-group">
                 <label for="category">Выбери родительскую категорию</label>
-
                 <select class="form-control" name="category_id" id="category" >
                     {% for item in categories %}
                         {% if item.__lvl > 0 %}
@@ -24,9 +23,8 @@
                         {% endif %}
                     {% endfor %}
                 </select>
-
             </div>
-            <input class="btn btn-default" type="submit" value="Показать">
+            <input class="btn btn-default" type="submit" value="Выбрать">
         </form>
     </div>
 </div>
@@ -56,8 +54,4 @@
     </div>
 </div><!-- END of MAIN CONTENT -->
 
-<!-- RIGHT SIDEBAR -->
-<div>
-
-</div>
 {% endblock %}

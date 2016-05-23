@@ -46,8 +46,6 @@ class Category extends Controller
 
     public function actionUp(int $category_id)
     {
-
-        
         $category = Cat::findByPK($category_id);
         
         if( empty($category) )
@@ -55,7 +53,6 @@ class Category extends Controller
         $sibling = $category->getPrevSibling();
         if( !empty($sibling) )
             $category->insertBefore($sibling);
-
 
         $this->redirect('/category');
     }
@@ -69,7 +66,6 @@ class Category extends Controller
         $sibling = $category->getNextSibling();
         if( !empty($sibling) )
             $category->insertAfter($sibling);
-
 
         $this->redirect('/category');
     }

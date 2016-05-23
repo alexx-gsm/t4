@@ -8,13 +8,17 @@ use T4\Mvc\Controller;
 
 class Product extends Controller
 {
-    public function actionDefault(int $category_id = 1)
+    public function actionDefault(int $category_id = null)
     {
-        $this->data->products = \App\Models\Product::findByCategory($category_id);  // products in selected category
         $this->data->categories = Category::findAllTree();                          // all categories for <SELECT>..</
-        $this->data->selected_category = Category::findByPK($category_id);          // name of selected category
-        
-        $this->data->sub_products = \App\Models\Product::findAllChildren($category_id); // all products in sub_categories
+
+        if( !$category_id == null ) {
+            $category = Category::findByPK($category_id);
+            $this->data->selected_category = $category;                                 // name of selected category
+            $this->data->products = \App\Models\Product::findByCategory($category);    // products in selected category
+            $this->data->sub_products = \App\Models\Product::findAllByCategory($category); // all products in sub_categories
+        }
+
     }
 
 }

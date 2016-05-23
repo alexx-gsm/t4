@@ -25,35 +25,28 @@ class Product extends Model
         ],
     ];
 
-    static public function findByCategory($id)
+    /**
+     * @param Category $category
+     * @return \T4\Core\Collection|static[] - All products in Category $category
+     */
+    static public function findByCategory(Category $category)               // find products in selected category
     {
-        $query = new QueryBuilder();
-        $query
-            ->select()
-            ->from('products')
-            ->where('__category_id=:category_id')
-            ->params([':category_id' => $id]);
-
-        return Product::findAllByQuery($query);
-
+        return self::findAllByColumn('__category_id', $category->getPk());
     }
 
-    static public function findAllChildren($id)
+    /**
+     * @param Category $category
+     * @return array - All products in sub_categories of Category $category
+     */
+    static public function findAllByCategory(Category $category)            // find products in sub_categories
     {
-        $parent_category = Category::findByPK($id);
-        if( empty($parent_category) ) {
-            return [];
-        }
-        $sub_categories = $parent_category->findAllChildren();
-        $sub_products = [];
+        $sub_categories = $category->findAllChildren();
 
+        $sub_products = [];
         foreach ($sub_categories as $cat) {
-            $products = Product::findByCategory($cat->pk);
-            if( !empty($products) ) {
-                $sub_products[$cat->title] = $products;
-            }
+            $sub_products[$cat->title] = self::findByCategory($cat);
         }
-        
+
         return $sub_products;
     }
 }
