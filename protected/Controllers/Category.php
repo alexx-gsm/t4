@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 
 use App\Models\Category as Cat;
-use T4\Core\Exception;
 use T4\Core\MultiException;
 use T4\Mvc\Controller;
 
@@ -14,29 +13,26 @@ class Category extends Controller
     {
         $this->data->tree = Cat::findAllTree();
     }
-    
-    public function actionAdd($form = null)
+
+    public function actionEdit($category_id = 0)
     {
-        if ( !$form == null ) {
-            $category = new Cat();
-            
-            $parent = Cat::findByPK($form->parent_id);
-
-            if( !empty($parent) ) {
-                $category->parent = $parent;
-            }
-
+        if ($category_id > 0) {                                     // EDIT category
+            $this->data->category = Cat::findByPK($category_id);
+        }
+        
+        if( isset($this->app->request->post->save) ) {              // trying to SAVE category
+            $form = $this->app->request->post->form;
+            $category = ( $form->id == null ) ? new Cat() : Cat::findByPK($form->id);
+            $category->parent = Cat::findByPK($form->__prt) ?? null;
             try {
                 $category->fill($form);
                 $category->save();
                 $this->redirect('/category');
             } catch (MultiException $err) {
-                $this->data->form = $form;
+                $this->data->category = $form;
                 $this->data->errors = $err;
-            };
-            
+            }
         }
-        
         $this->data->tree = Cat::findAllTree();
     }
 

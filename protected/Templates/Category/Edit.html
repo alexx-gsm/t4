@@ -1,0 +1,68 @@
+{% extends 'Admin.html' %}
+
+{% block content %}
+
+<div class="row">
+
+    <!-- MAIN CONTENT -->
+    <div class="col-md-9">
+        {% for error in errors %}
+            <div class="alert alert-danger">
+                {{ error.message }}
+            </div>
+        {% endfor %}
+        <div class="panel panel-default">
+            <div class="panel-heading">Добавление новой категории</div>
+            <div class="panel-body">
+                <form action="/category/edit" method="post">
+                    <div class="form-group">
+                        <label for="category">Выбери родительскую категорию</label>
+                        <select class="form-control" name="form[__prt]" id="category" >
+                            <option name="id" value="0">-</option>
+                            {% for item in tree %}
+                                {% if item.__lvl > 0 %}
+                                    <option name="id" value="{{ item.pk }}"
+                                        {% if item.pk == category.__prt %}
+                                            selected
+                                        {% endif %}>
+                                    {% for i in 1..item.__lvl %}
+                                        <span>&nbsp;&nbsp;</span>
+                                    {% endfor %}
+                                    {{ item.title }}
+                                    </option>
+                                {% else %}
+                                    <option name="id" value="{{ item.pk }}"
+                                        {% if item.pk == category.__prt %}
+                                        selected
+                                        {% endif %}
+                                    >{{ item.title }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Название категории</label>
+                        <input class="form-control" type="text" name="form[title]" id="title" value="{{category.title}}" required>
+                        <input type="hidden" name="form[id]" value="{{category.pk}}">
+                    </div>
+                    <input class="btn btn-default" type="submit" value="Сохранить" name="save">
+                </form>
+            </div>
+        </div>
+
+    </div><!-- END of MAIN CONTENT -->
+
+    <!-- RIGHT SIDEBAR -->
+    <div class="col-md-3">
+        <div class="panel panel-warning">
+            <div class="panel-heading">Категория</div>
+            <div class="panel-body">
+                <a href="/category/add" class="btn btn-default btn-md" role="button">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true">&nbsp;</span>
+                    Добавить
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

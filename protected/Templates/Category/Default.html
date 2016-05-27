@@ -6,15 +6,15 @@
 <div class="row">
     <!-- MAIN CONTENT -->
     <div class="col-md-9">
-        <a href="/category/add" class="btn btn-default btn-md" role="button">
+        <a href="/category/edit" class="btn btn-default btn-md" role="button">
             <span class="glyphicon glyphicon-plus" aria-hidden="true">&nbsp;</span>
             Добавить
         </a>
         <hr>
         <table class="table table-striped">
             <tr>
-                <th width="80%">Название категории</th>
-                <th width="20%">удалить</th>
+                <th width="70%">Название категории</th>
+                <th width="30%">Инструменты</th>
             </tr>
         {% for item in tree %}
                 <tr>
@@ -29,14 +29,19 @@
                     {% endif %}
                     </td>
                     <td>
-                        <a href="/category/del?category_id={{ item.pk }}" class="btn btn-default btn-md" role="button">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                        </a>
+
                         <a href="/category/up?category_id={{ item.pk }}" class="btn btn-default btn-md" role="button">
                             <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
                         </a>
                         <a href="/category/down?category_id={{ item.pk }}" class="btn btn-default btn-md" role="button">
                             <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+                        </a>
+                        <a href="/category/edit?category_id={{ item.pk }}" class="btn btn-success btn-md" role="button">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        </a>
+                        <span>&nbsp;&nbsp;</span>
+                        <a href="/category/del?category_id={{ item.pk }}" class="btn btn-danger btn-md" role="button">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                         </a>
                     </td>
                 </tr>
@@ -49,7 +54,7 @@
         <div class="panel panel-warning">
             <div class="panel-heading">Категория</div>
             <div class="panel-body">
-                <a href="/category/add" class="btn btn-default btn-md" role="button">
+                <a href="/category/edit" class="btn btn-default btn-md" role="button">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true">&nbsp;</span>
                     Добавить
                 </a>
