@@ -46,4 +46,12 @@ class Category extends Model
     {
         return $val;
     }
+    
+    protected function afterDelete()
+    {
+        $products = Product::findAllByColumn('__category_id', $this->getPk());
+        foreach ($products as $product) {
+            $product->delete();
+        }
+    }
 }
