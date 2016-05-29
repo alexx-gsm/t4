@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-use T4\Dbal\QueryBuilder;
+use T4\Core\Exception;
 use T4\Orm\Model;
 
 /**
@@ -16,6 +16,7 @@ class Product extends Model
     static protected $schema = [
         'columns'  => [
             'name' => ['type' => 'string'],
+            'price'=> ['type' => 'integer'],
         ],
         'relations' => [
             'category'  => [
@@ -48,5 +49,40 @@ class Product extends Model
         }
 
         return $sub_products;
+    }
+
+    protected function validateName($val)
+    {
+        if (strlen($val) < 3) {
+            yield new Exception("слишком короткое имя у товара");
+        }
+
+        if (!preg_match('~[a-zа-я0-9]~i', $val)) {
+            yield new Exception("не верные символы в имени категории");
+        }
+        return true;
+    }
+
+    protected function sanitizeName($val)
+    {
+        return $val;
+    }
+
+    protected function validatePrice($val)
+    {
+        if (!preg_match('~[0-9]~', $val)) {
+            yield new Exception("только циферки");
+        }
+
+        if ($val <= 0) {
+            yield new Exception("Цена должна быть больше 0");
+        }
+
+        return true;
+    }
+
+    protected function sanitizePrice($val)
+    {
+        return preg_replace('~\D+~', '', $val);
     }
 }

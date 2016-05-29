@@ -9,8 +9,9 @@ use T4\Mvc\Controller;
 
 class Category extends Controller
 {
-    public function actionDefault()
+    public function actionDefault($parent_id = null)
     {
+        $this->data->parent_id = $parent_id;
         $this->data->tree = Cat::findAllTree();
     }
 
@@ -23,7 +24,7 @@ class Category extends Controller
         if( isset($this->app->request->post->save) ) {              // trying to SAVE category
             $form = $this->app->request->post->form;
             $category = ( $form->id == null ) ? new Cat() : Cat::findByPK($form->id);
-            $category->parent = Cat::findByPK($form->__prt) ?? null;
+            $category->parent = Cat::findByPK($form->__prt);
             try {
                 $category->fill($form);
                 $category->save();
@@ -33,7 +34,6 @@ class Category extends Controller
                 $this->data->errors = $err;
             }
         }
-        $this->data->tree = Cat::findAllTree();
     }
 
     public function actionDel(int $category_id)

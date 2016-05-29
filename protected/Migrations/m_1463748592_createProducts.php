@@ -12,6 +12,7 @@ class m_1463748592_createProducts
     {
         $this->createTable('products', [
             'name' => ['type' => 'string'],
+            'price'=> ['type' => 'integer'],
             '__category_id' => ['type' => 'link'],
         ]);
     }

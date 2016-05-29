@@ -1,0 +1,13 @@
+<div class="panel panel-warning">
+    <div class="panel-heading">Товары в подкатегориях категории: {{ category.title }}</div>
+    <div class="panel-body">
+        {% for key, items in sub_products %}
+        {{ key }}
+        <ul>
+            {% for item in items %}
+            <li>{{ item.name }}</li>
+            {% endfor %}
+        </ul>
+        {% endfor %}
+    </div>
+</div>

@@ -7,51 +7,13 @@
     <div class="panel-heading">Категории</div>
     <div class="panel-body">
         <form action="/product" method="post">
-            <div class="form-group">
-                <label for="category">Выбери родительскую категорию</label>
-                <select class="form-control" name="category_id" id="category" >
-                    {% for item in categories %}
-                        {% if item.__lvl > 0 %}
-                        <option name="category_id" value="{{ item.pk }}">
-                            {% for i in 1..item.__lvl %}
-                            <span>&nbsp;&nbsp;</span>
-                            {% endfor %}
-                            {{ item.title }}
-                        </option>
-                        {% else %}
-                            <option name="category_id" value="{{ item.pk }}">{{ item.title }}</option>
-                        {% endif %}
-                    {% endfor %}
-                </select>
-            </div>
+            <t4:block path="//Category/Default" parent_id="{{ category.pk }}"/>
             <input class="btn btn-default" type="submit" value="Выбрать">
         </form>
     </div>
 </div>
 
-<div class="panel panel-success">
-    <div class="panel-heading">Товары в категории: {{ selected_category.title }}</div>
-    <div class="panel-body">
-        <ul>
-        {% for product in products %}
-            <li>{{ product.name }}</li>
-        {% endfor %}
-        </ul>
-    </div>
-</div>
-
-<div class="panel panel-warning">
-    <div class="panel-heading">Товары в подкатегориях категории: {{ selected_category.title }}</div>
-    <div class="panel-body">
-        {% for key, items in sub_products %}
-        {{ key }}
-        <ul>
-            {% for item in items %}
-                <li>{{ item.name }}</li>
-            {% endfor %}
-        </ul>
-        {% endfor %}
-    </div>
-</div><!-- END of MAIN CONTENT -->
+<t4:block path="//Product/InCategory" id="{{ category.pk }}" />
+<t4:block path="//Product/InSubCategory" id="{{ category.pk }}" />
 
 {% endblock %}

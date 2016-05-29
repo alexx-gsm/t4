@@ -1,0 +1,25 @@
+<div class="form-group">
+    <label for="category">Выбери родительскую категорию</label>
+    <select class="form-control" name="form[__prt]" id="category" >
+        <option name="id" value="0">-</option>
+        {% for item in tree %}
+        {% if item.__lvl > 0 %}
+        <option name="id" value="{{ item.pk }}"
+                {% if item.pk == parent_id %}
+                selected
+                {% endif %}>
+            {% for i in 1..item.__lvl %}
+            <span>&nbsp;&nbsp;</span>
+            {% endfor %}
+            {{ item.title }}
+        </option>
+        {% else %}
+        <option name="id" value="{{ item.pk }}"
+                {% if item.pk == parent_id %}
+                selected
+                {% endif %}
+        >{{ item.title }}</option>
+        {% endif %}
+        {% endfor %}
+    </select>
+</div>

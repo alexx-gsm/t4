@@ -1,0 +1,27 @@
+{% extends 'Admin.html' %}
+
+{% block content %}
+
+{% for error in errors %}
+    <div class="alert alert-danger">
+        {{ error.message }}
+    </div>
+{% endfor %}
+<div class="panel panel-default">
+    <div class="panel-heading">Добавление нового товара</div>
+    <div class="panel-body">
+        <form action="/product/edit" method="post">
+            <t4:block path="//Category/Default" parent_id="{{ category.pk }}"/>
+            <div class="form-group">
+                <label for="title">Название товара</label>
+                <input class="form-control" type="text" name="form[name]" id="title" value="{{ product.name }}" required>
+                <label for="price">Цена товара</label>
+                <input class="form-control" type="text" name="form[price]" id="price" value="{{ product.price }}" required>
+                <input type="hidden" name="form[pk]" value="{{ product.pk }}">
+            </div>
+            <input class="btn btn-default" type="submit" value="Сохранить" name="save">
+        </form>
+    </div>
+</div>
+
+{% endblock %}
