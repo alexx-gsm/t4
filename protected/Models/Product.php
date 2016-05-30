@@ -45,7 +45,7 @@ class Product extends Model
 
         $sub_products = [];
         foreach ($sub_categories as $cat) {
-            $sub_products[$cat->title] = self::findByCategory($cat);
+            $sub_products[$cat->title] = $cat->products;
         }
 
         return $sub_products;

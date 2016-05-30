@@ -19,7 +19,6 @@ class Product extends Controller
     {
         if (!$id == null) {
             $this->data->category = Category::findByPK($id);
-            $this->data->products = \App\Models\Product::findByCategory($this->data->category);
         }
     }
 
