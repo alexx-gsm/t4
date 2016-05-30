@@ -49,8 +49,7 @@ class Category extends Model
     
     protected function afterDelete()
     {
-        $products = Product::findAllByColumn('__category_id', $this->getPk());
-        foreach ($products as $product) {
+        foreach ($this->products as $product) {
             $product->delete();
         }
     }
