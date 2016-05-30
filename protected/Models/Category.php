@@ -25,7 +25,6 @@ class Category extends Model
                 'model' => Product::class
             ],
         ]
-        
     ];
 
     static protected $extensions = ['tree'];

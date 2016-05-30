@@ -10,8 +10,8 @@ class Product extends Controller
 {
     public function actionDefault($form = null)             // name of selected category
     {
-        if( !$form == null ) {
-            $this->data->category = Category::findByPK($form->__prt);
+        if( !$form->id == null ) {
+            $this->data->category = Category::findByPK($form->id);
         }
     }
 
@@ -31,27 +31,32 @@ class Product extends Controller
         }
     }
 
-    public function actionEdit($category_id = null, $product_id = 0)
+    public function actionEdit($category_id = null, $product_id = null)
     {
-        $this->data->category = Category::findByPK($category_id);
+        $this->data->category_id = $category_id;
 
-        if ($product_id > 0) {
+        if (!$product_id == null) {
             $this->data->product = \App\Models\Product::findByPK($product_id);
         }
 
-        if( isset($this->app->request->post->save) ) {              // trying to SAVE product
-            $form = $this->app->request->post->form;
-            $product = ( $form->pk == null ) ? new \App\Models\Product() : \App\Models\Product::findByPK($form->pk);
-            $this->data->category = Category::findByPK($form->__prt);
-            $product->category = $this->data->category;
-            try {
-                $product->fill($form);
-                $product->save();
-                $this->redirect('/product?form[__prt]='.$form->__prt);
-            } catch (MultiException $err) {
-                $this->data->product = $form;
-                $this->data->errors = $err;
-            }
+        if( isset($this->app->flash->errors) ) {
+            $this->data->product = $this->app->flash->form;
+            $this->data->errors = $this->app->flash->errors;
+        }
+    }
+
+    public function actionSave($form = null)
+    {
+        $product = ( isset($form->pk) && ($form->pk > 0) ) ? \App\Models\Product::findByPK($form->pk) : new \App\Models\Product();
+        $product->category = Category::findByPK($form->id);
+        try {
+            $product->fill($form);
+            $product->save();
+            $this->redirect('/product?form[id]='.$form->id);
+        } catch (MultiException $errors) {
+            $this->app->flash->errors = $errors;
+            $this->app->flash->form = $form;
+            $this->redirect('/product/edit?category_id='.$product->category->getPk());
         }
     }
 
@@ -62,7 +67,6 @@ class Product extends Controller
         if ( !empty($product) ) {
             $product->delete();
         }
-        $this->redirect('/product?form[__prt]='.$category->getPk());
+        $this->redirect('/product?form[id]='.$category->getPk());
     }
-
 }

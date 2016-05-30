@@ -9,9 +9,9 @@ use T4\Mvc\Controller;
 
 class Category extends Controller
 {
-    public function actionDefault($parent_id = null)
+    public function actionDefault($id = null)
     {
-        $this->data->parent_id = $parent_id;
+        $this->data->parent_id = $id;
         $this->data->tree = Cat::findAllTree();
     }
 
@@ -20,19 +20,25 @@ class Category extends Controller
         if ($category_id > 0) {                                     // EDIT category
             $this->data->category = Cat::findByPK($category_id);
         }
-        
-        if( isset($this->app->request->post->save) ) {              // trying to SAVE category
-            $form = $this->app->request->post->form;
-            $category = ( $form->id == null ) ? new Cat() : Cat::findByPK($form->id);
-            $category->parent = Cat::findByPK($form->__prt);
-            try {
-                $category->fill($form);
-                $category->save();
-                $this->redirect('/category');
-            } catch (MultiException $err) {
-                $this->data->category = $form;
-                $this->data->errors = $err;
-            }
+
+        if( isset($this->app->flash->errors) ) {
+            $this->data->category = $this->app->flash->form;
+            $this->data->errors = $this->app->flash->errors;
+        }
+    }
+
+    public function actionSave($form = null)
+    {
+        $category = ( isset($form->pk) && ($form->pk > 0) ) ? Cat::findByPK($form->pk) : new Cat();
+        $category->parent = Cat::findByPK($form->id);
+        try {
+            $category->fill($form);
+            $category->save();
+            $this->redirect('/category');
+        } catch (MultiException $errors) {
+            $this->app->flash->errors = $errors;
+            $this->app->flash->form = $form;
+            $this->redirect('/category/edit');
         }
     }
 

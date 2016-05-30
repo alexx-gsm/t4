@@ -10,12 +10,12 @@
 <div class="panel panel-default">
     <div class="panel-heading">Добавление новой категории</div>
     <div class="panel-body">
-        <form action="/category/edit" method="post">
-            <t4:block path="//Category/Default" parent_id="{{ category.__prt }}"/>
+        <form action="/category/save" method="post">
+            <t4:block path="//Category/Default" id="{{ category.parent.pk }}"/>
             <div class="form-group">
                 <label for="title">Название категории</label>
                 <input class="form-control" type="text" name="form[title]" id="title" value="{{category.title}}" required>
-                <input type="hidden" name="form[id]" value="{{category.pk}}">
+                <input type="hidden" name="form[pk]" value="{{category.pk}}">
             </div>
             <input class="btn btn-default" type="submit" value="Сохранить" name="save">
         </form>

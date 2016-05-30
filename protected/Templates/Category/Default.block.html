@@ -1,6 +1,6 @@
 <div class="form-group">
     <label for="category">Выбери родительскую категорию</label>
-    <select class="form-control" name="form[__prt]" id="category" >
+    <select class="form-control" name="form[id]" id="category" >
         <option name="id" value="0">-</option>
         {% for item in tree %}
         {% if item.__lvl > 0 %}

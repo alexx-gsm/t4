@@ -10,8 +10,8 @@
 <div class="panel panel-default">
     <div class="panel-heading">Добавление нового товара</div>
     <div class="panel-body">
-        <form action="/product/edit" method="post">
-            <t4:block path="//Category/Default" parent_id="{{ category.pk }}"/>
+        <form action="/product/save" method="post">
+            <t4:block path="//Category/Default" id="{{ category_id }}"/>
             <div class="form-group">
                 <label for="title">Название товара</label>
                 <input class="form-control" type="text" name="form[name]" id="title" value="{{ product.name }}" required>
